@@ -13,23 +13,23 @@ public class BoardRepository : IBoardRepository {
         _dataSource = dataSource;
     }
 
-    public Turn GetActiveTurn() {
+    public BoardItem GetActiveTurn() {
         return _dataSource.ReadTurn();
     }
 
-    public Turn? GetBoardItem(int x, int y) {
+    public BoardItem? GetBoardItem(int x, int y) {
         int data = _dataSource.Read(x, y);
 
         if(data == 1) {
-            return Turn.Krestik;
+            return BoardItem.Krestik;
         } else if(data == 2) {
-            return Turn.Nolik;
+            return BoardItem.Nolik;
         } else {
             return null;
         }
     }
 
-    public List<int> GetBoardItemIndexs(Turn item) {
+    public List<int> GetBoardItemIndexs(BoardItem item) {
         int data = ParseBoardItem(item);
 
         return _dataSource.GetBoardItemIndexs(data);
@@ -53,22 +53,22 @@ public class BoardRepository : IBoardRepository {
         _dataSource.Write(2, 2, 0);
     }
 
-    public void SetActiveTurn(Turn turn) {
+    public void SetActiveTurn(BoardItem turn) {
         _dataSource.WriteTurn(turn);
     }
 
-    public void WriteBoardITem(int x, int y, Turn item) {
+    public void WriteBoardITem(int x, int y, BoardItem item) {
         int data = ParseBoardItem(item);
 
         _dataSource.Write(x, y, data);
     }
 
-    private int ParseBoardItem(Turn item) {
+    private int ParseBoardItem(BoardItem item) {
         int data;
 
-        if (item == Turn.Krestik) {
+        if (item == BoardItem.Krestik) {
             data = 1;
-        } else if (item == Turn.Nolik) {
+        } else if (item == BoardItem.Nolik) {
             data = 2;
         } else {
             data = 0;

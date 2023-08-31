@@ -7,8 +7,9 @@ public interface IBoardDataSource {
     public void Write(int x, int y, int value);
     public int Read(int x, int y);
 
-    public void WriteTurn(Turn turn);
-    public Turn ReadTurn();
+    public void WriteTurn(BoardItem turn);
+
+    public BoardItem ReadTurn();
 
     public List<int> GetBoardItemIndexs(int value);
 

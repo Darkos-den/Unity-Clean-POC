@@ -14,6 +14,6 @@ public interface ICellController {
     public void ObserveColor(UnityAction<Color> observer);
     public void RemoveObserver(UnityAction<Color> observer);
 
-    public void ObserveBoardItem(UnityAction<Turn?> observer);
-    public void RemoveObserver(UnityAction<Turn?> observer);
+    public void ObserveBoardItem(UnityAction<BoardItem?> observer);
+    public void RemoveObserver(UnityAction<BoardItem?> observer);
 }

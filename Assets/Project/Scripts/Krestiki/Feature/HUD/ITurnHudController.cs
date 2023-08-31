@@ -5,11 +5,11 @@ using UnityEngine.Events;
 
 public interface ITurnHudController {
 
-    public void ObserveCurrentTurn(UnityAction<Turn> observer);
-    public void RemoveObserver(UnityAction<Turn> observer);
+    public void ObserveCurrentTurn(UnityAction<BoardItem> observer);
+    public void RemoveObserver(UnityAction<BoardItem> observer);
 
-    public void ObserveWinState(UnityAction<Turn?> observer);
-    public void RemoveWinStateObserver(UnityAction<Turn?> observer);
+    public void ObserveWinState(UnityAction<BoardItem?> observer);
+    public void RemoveWinStateObserver(UnityAction<BoardItem?> observer);
 
     public void OnResetClicked();
 }

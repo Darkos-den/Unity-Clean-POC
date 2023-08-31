@@ -10,11 +10,11 @@ public class CellController : ICellController {
     private int _x;
     private int _y;
 
-    private Turn? _boardItem;
-    private Turn _turn;
+    private BoardItem? _boardItem;
+    private BoardItem _turn;
 
     private UnityAction<Color> _onColorChanged;
-    private UnityAction<Turn?> _onBoardItemChanged;
+    private UnityAction<BoardItem?> _onBoardItemChanged;
 
     private bool _isActive = true;
 
@@ -35,11 +35,11 @@ public class CellController : ICellController {
         return color;
     }
 
-    private void OnTurnChanged(Turn turn) {
+    private void OnTurnChanged(BoardItem turn) {
         _turn = turn;
     }
 
-    private void OnUserWin(Turn? turn) {
+    private void OnUserWin(BoardItem? turn) {
         if(turn != null) {
             _isActive = false;
         }
@@ -59,10 +59,10 @@ public class CellController : ICellController {
 
     public void HandleMouseEnter() {
         if(_boardItem == null && _isActive) {
-            if(_turn == Turn.Nolik) {
-                _onBoardItemChanged?.Invoke(Turn.Nolik);
+            if(_turn == BoardItem.Nolik) {
+                _onBoardItemChanged?.Invoke(BoardItem.Nolik);
             } else {
-                _onBoardItemChanged?.Invoke(Turn.Krestik);
+                _onBoardItemChanged?.Invoke(BoardItem.Krestik);
             }
         }
     }
@@ -85,23 +85,23 @@ public class CellController : ICellController {
         _useCase.RemoveResetGameObserver(OnResetGame);
     }
 
-    public void ObserveBoardItem(UnityAction<Turn?> observer) {
+    public void ObserveBoardItem(UnityAction<BoardItem?> observer) {
         _onBoardItemChanged += observer;
         observer.Invoke(_boardItem);
     }
 
-    public void RemoveObserver(UnityAction<Turn?> observer) {
+    public void RemoveObserver(UnityAction<BoardItem?> observer) {
         _onBoardItemChanged -= observer;
     }
 
     public void HandleClick() {
         if(_boardItem == null && _isActive) {
-            if (_turn == Turn.Nolik) {
-                _boardItem = Turn.Nolik;
+            if (_turn == BoardItem.Nolik) {
+                _boardItem = BoardItem.Nolik;
             } else {
-                _boardItem = Turn.Krestik;
+                _boardItem = BoardItem.Krestik;
             }
-            _useCase.AddBoardItem(_x, _y, (Turn)_boardItem);
+            _useCase.AddBoardItem(_x, _y, (BoardItem)_boardItem);
             _onColorChanged.Invoke(ProcessColor());
             _onBoardItemChanged?.Invoke(_boardItem);
         }

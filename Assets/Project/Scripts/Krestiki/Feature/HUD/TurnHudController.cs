@@ -13,11 +13,11 @@ public class TurnHudController : ITurnHudController {
         _useCase = useCase;
     }
 
-    public void ObserveCurrentTurn(UnityAction<Turn> observer) {
+    public void ObserveCurrentTurn(UnityAction<BoardItem> observer) {
         _useCase.ObserveTurnState(observer);
     }
 
-    public void ObserveWinState(UnityAction<Turn?> observer) {
+    public void ObserveWinState(UnityAction<BoardItem?> observer) {
         _useCase.ObserveUserWin(observer);
     }
 
@@ -25,11 +25,11 @@ public class TurnHudController : ITurnHudController {
         _useCase.ResetGame();
     }
 
-    public void RemoveObserver(UnityAction<Turn> observer) {
+    public void RemoveObserver(UnityAction<BoardItem> observer) {
         _useCase.RemoveObserver(observer);
     }
 
-    public void RemoveWinStateObserver(UnityAction<Turn?> observer) {
+    public void RemoveWinStateObserver(UnityAction<BoardItem?> observer) {
         _useCase.RemoveUserWinObserver(observer);
     }
 }

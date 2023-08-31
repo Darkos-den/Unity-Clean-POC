@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoardDataSource: IBoardDataSource {
 
     private readonly int[] _board;
-    private Turn _turn;
+    private BoardItem _turn;
 
     public BoardDataSource() {
         _board = new int[9];
@@ -38,7 +38,7 @@ public class BoardDataSource: IBoardDataSource {
         return _board[x * 3 + y];
     }
 
-    public Turn ReadTurn() {
+    public BoardItem ReadTurn() {
         return _turn;
     }
 
@@ -46,7 +46,7 @@ public class BoardDataSource: IBoardDataSource {
         _board[x * 3 + y] = value;
     }
 
-    public void WriteTurn(Turn turn) {
+    public void WriteTurn(BoardItem turn) {
         _turn = turn;
     }
 }

@@ -27,15 +27,15 @@ public class TurnHudBehaviour : MonoBehaviour {
         _controller.RemoveWinStateObserver(OnWin);
     }
 
-    private void OnTurnChanged(Turn turn) {
-        if (turn == Turn.Nolik) {
+    private void OnTurnChanged(BoardItem turn) {
+        if (turn == BoardItem.Nolik) {
             _turnImage.sprite = _spriteNoliki;
         } else {
             _turnImage.sprite = _spriteKrestiki;
         }
     }
 
-    private void OnWin(Turn? turn) {
+    private void OnWin(BoardItem? turn) {
         if(turn != null) {
             _winText.text = "YOU WIN";
         } else {

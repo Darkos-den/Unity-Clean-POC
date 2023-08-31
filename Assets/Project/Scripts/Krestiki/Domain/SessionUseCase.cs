@@ -6,8 +6,8 @@ public class SessionUseCase: ISessionUseCase {
 
     private IBoardRepository _boardRepository;
 
-    private UnityAction<Turn> _onTurnChanged;
-    private UnityAction<Turn?> _onUserWin;
+    private UnityAction<BoardItem> _onTurnChanged;
+    private UnityAction<BoardItem?> _onUserWin;
     private UnityAction _onResetGame;
 
     [Inject]
@@ -15,7 +15,7 @@ public class SessionUseCase: ISessionUseCase {
         _boardRepository = boardRepository;
     }
 
-    private bool CheckWinState(Turn item) {
+    private bool CheckWinState(BoardItem item) {
         var indexs = _boardRepository.GetBoardItemIndexs(item);
 
         if(indexs.Contains(0) && indexs.Contains(1) && indexs.Contains(2)) {
@@ -48,20 +48,20 @@ public class SessionUseCase: ISessionUseCase {
         return false;
     }
 
-    public void AddBoardItem(int x, int y, Turn item) {
+    public void AddBoardItem(int x, int y, BoardItem item) {
         if(_boardRepository.GetBoardItem(x, y) == null) {
             _boardRepository.WriteBoardITem(x, y, item);
 
-            Turn turn = _boardRepository.GetActiveTurn();
+            BoardItem turn = _boardRepository.GetActiveTurn();
             if (CheckWinState(item)) {
                 _onUserWin?.Invoke(turn);
             } else if (_boardRepository.IsBoardFull()) {
                 _onUserWin?.Invoke(null);
             } else {
-                if (turn == Turn.Krestik) {
-                    _boardRepository.SetActiveTurn(Turn.Nolik);
+                if (turn == BoardItem.Krestik) {
+                    _boardRepository.SetActiveTurn(BoardItem.Nolik);
                 } else {
-                    _boardRepository.SetActiveTurn(Turn.Krestik);
+                    _boardRepository.SetActiveTurn(BoardItem.Krestik);
                 }
 
                 _onTurnChanged?.Invoke(_boardRepository.GetActiveTurn());
@@ -75,20 +75,20 @@ public class SessionUseCase: ISessionUseCase {
         _boardRepository.ResetBord();
     }
 
-    public void ObserveTurnState(UnityAction<Turn> observer) {
+    public void ObserveTurnState(UnityAction<BoardItem> observer) {
         _onTurnChanged += observer;
         observer.Invoke(_boardRepository.GetActiveTurn());
     }
 
-    public void RemoveObserver(UnityAction<Turn> observer) {
+    public void RemoveObserver(UnityAction<BoardItem> observer) {
         _onTurnChanged -= observer;
     }
 
-    public void ObserveUserWin(UnityAction<Turn?> observer) {
+    public void ObserveUserWin(UnityAction<BoardItem?> observer) {
         _onUserWin += observer;
     }
 
-    public void RemoveUserWinObserver(UnityAction<Turn?> observer) {
+    public void RemoveUserWinObserver(UnityAction<BoardItem?> observer) {
         _onUserWin -= observer;
     }
 

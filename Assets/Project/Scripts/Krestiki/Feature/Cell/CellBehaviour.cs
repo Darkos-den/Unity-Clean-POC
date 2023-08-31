@@ -41,10 +41,10 @@ public class CellBehaviour : MonoBehaviour {
         _image.color = color;
     }
 
-    private void OnBoardItemChanged(Turn? item) {
-        if(item == Turn.Krestik) {
+    private void OnBoardItemChanged(BoardItem? item) {
+        if(item == BoardItem.Krestik) {
             _image.sprite = _spriteKrestiki;
-        } else if(item == Turn.Nolik) {
+        } else if(item == BoardItem.Nolik) {
             _image.sprite = _spriteNoliki;
         } else {
             _image.sprite = null;
